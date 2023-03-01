@@ -28,7 +28,6 @@ public class NamingStrategyIsUsedByRunnerTest {
 
     @Test
     @Parameters({"param1", "param2"})
-    @TestCaseNameStrategy(MacroSubstitutionNamingStrategy.class)
     @TestCaseName("[{index}] Well formed name of {method} with {params}")
     public void sampleMethod(String parameter) {
     }
