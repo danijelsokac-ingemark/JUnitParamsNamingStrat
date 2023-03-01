@@ -2,8 +2,9 @@ package junitparams.internal;
 
 import junitparams.internal.annotation.FrameworkMethodAnnotations;
 import junitparams.internal.parameters.ParametersReader;
-import junitparams.naming.MacroSubstitutionNamingStrategy;
+import junitparams.naming.NamingStrategyFactory;
 import junitparams.naming.TestCaseName;
+import junitparams.naming.TestCaseNameStrategy;
 import junitparams.naming.TestCaseNamingStrategy;
 import org.junit.Ignore;
 import org.junit.runner.Description;
@@ -37,7 +38,7 @@ public class TestMethod {
             protected Description computeValue() {
 
                 if (isNotIgnored() && !describeFlat()) {
-                    TestCaseNamingStrategy namingStrategy = new MacroSubstitutionNamingStrategy(getAnnotation(TestCaseName.class), name());
+                    TestCaseNamingStrategy namingStrategy = NamingStrategyFactory.getStrategy(getAnnotation(TestCaseNameStrategy.class), getAnnotation(TestCaseName.class), name());
                     return new ParametrizedDescription(namingStrategy, testClass.getJavaClass().getName(), name()).parametrizedDescription(parametersSets());
                 } else {
                     return Description.createTestDescription(testClass.getJavaClass(), name(), frameworkMethodAnnotations.allAnnotations());
